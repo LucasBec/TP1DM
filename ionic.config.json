@@ -1,0 +1,7 @@
+{
+  "name": "tp1 Beceiro Lucas",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}

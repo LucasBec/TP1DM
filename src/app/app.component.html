@@ -1,0 +1,20 @@
+<ion-app>
+  <!-- sidemenu -->
+  <ion-menu side="start" menuId="m1" contentId="main-content">
+    <ion-header>
+      <ion-toolbar>
+        <ion-title>Menu Content</ion-title>
+        <!-- <ion-note>{{user.email}}</ion-note> -->
+      </ion-toolbar>
+      <ion-list >
+        <ion-item class="ion-padding" button routerLink="/home">Home</ion-item>
+        <ion-item class="ion-padding" button routerLink="/profile">Mi Perfil</ion-item>
+        <ion-item class="ion-padding" button>Item 3</ion-item>
+        <ion-item class="ion-padding" button>Item 4</ion-item>
+      </ion-list>
+    </ion-header>
+      
+  </ion-menu>
+
+  <ion-router-outlet id="main-content"></ion-router-outlet>
+</ion-app>
