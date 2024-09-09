@@ -1,0 +1,8 @@
+node_modules
+.angular
+.angular/cache
+
+# Ignorar compilaciones de Ionic o Angular
+www/
+dist/
+build/
