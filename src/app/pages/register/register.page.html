@@ -6,20 +6,28 @@
 </ion-header>
 
 <ion-content [fullscreen]="true" class="ion-padding">
+
   <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-  <ion-input label="Email"  formControlName="email">
-  </ion-input>
+
+    <ion-input label="Username"  formControlName="username">
+    </ion-input>
+
+    <ion-input label="Email"  formControlName="email">
+    </ion-input>
   
-  <ion-input type="password" label="password" formControlName="password">
-    <ion-input-password-toggle slot="end"></ion-input-password-toggle>
-  </ion-input>
-  <ion-input type="password" label="confirm password" formControlName="repassword">
-    <ion-input-password-toggle slot="end"></ion-input-password-toggle>
-  </ion-input>
-  <ion-button [disabled]="!registerForm.valid" type="submit">Registrar</ion-button>
+    <ion-input type="password" label="password" formControlName="password">
+      <ion-input-password-toggle slot="end"></ion-input-password-toggle>
+    </ion-input>
+
+    <ion-input type="password" label="confirm password" formControlName="repassword">
+      <ion-input-password-toggle slot="end"></ion-input-password-toggle>
+    </ion-input>
+
+    <ion-button [disabled]="!registerForm.valid" type="submit">Registrar</ion-button>
   </form>
 
   <div class="register-link">
     <p>¿Ya tienes una cuenta? <a (click)="navigateToLogin()">Inicia sesión</a></p>
   </div>
+
 </ion-content>

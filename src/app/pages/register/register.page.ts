@@ -19,6 +19,7 @@ import {
   MenuController,
 } from '@ionic/angular/standalone';
 import { Router } from '@angular/router';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-register',
@@ -42,19 +43,18 @@ import { Router } from '@angular/router';
 })
 export class RegisterPage implements OnInit {
 
-  newUser = {email: 'user@gmail.com', password: '12345', repassword: '{password}'};
+  newUser = {username: '', email: '', password: '', repassword: ''};
 
   registerForm: FormGroup = new FormGroup({
+    username: new FormControl('', [Validators.required]),
     email: new FormControl('', [Validators.required, Validators.email] ),
     password: new FormControl('', [Validators.required]),
     repassword: new FormControl('', [Validators.required]),
   });
 
-  constructor(private menuController: MenuController, private router: Router) {}
+  constructor(private menuController: MenuController, private router: Router, private userService: UserService) {}
 
-  ngOnInit() {
-    
-  }
+  ngOnInit() { }
 
   //para que no funcione el sidemenu en el login
   ionViewWillEnter() {
@@ -66,29 +66,30 @@ export class RegisterPage implements OnInit {
   }
 
   onSubmit() {
-    console.log('form values: ',this.registerForm.value);
-    console.log('user: ',this.newUser);
-    if (this.registerForm.value.email === this.newUser.email && this.registerForm.value.password === this.newUser.password) {
-    console.log('usuario correcto');
-    this.registerForm.reset();
+    //alertar si las contraseñas no coinciden
+    if (this.registerForm.value.password != this.registerForm.value.repassword) {
+      alert('Las contraseñas no coinciden');
+      return;
+    }
+    
+    else if (this.registerForm.valid) {
+      const newUser = {
+        email: this.registerForm.value.email,
+        password: this.registerForm.value.password,
+        username: this.registerForm.value.username
+      };
 
-    this.router.navigate(['/', 'home'])
-    .then(nav => {
-      console.log(nav); 
-    }, err => {
-      console.log(err) 
-    });
+      this.registerForm.reset();
+
+      this.userService.setUser(newUser);
+
+      this.router.navigate(['/home']);
     }
-    else {
-      console.log('usuario incorrecto');
-    }
+
   }
 
   navigateToLogin() {
     this.router.navigate(['/login']);
   }
-
-
-
 }
 

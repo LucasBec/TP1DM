@@ -19,6 +19,7 @@ import {
   MenuController
 } from '@ionic/angular/standalone';
 import { Router } from '@angular/router';
+import { UserService } from 'src/app/services/user.service';
 
 
 
@@ -44,15 +45,16 @@ import { Router } from '@angular/router';
 })
 export class LoginPage implements OnInit {
   
-  user = {email: 'lucas@gmail.com', password: '12345', username: 'Lucas Beceiro'};
+  user = this.userService.getUser();
+  /* user = {email: 'lucas@gmail.com', password: '12345', username: 'Lucas Beceiro'}; */
   
 
   loginForm: FormGroup = new FormGroup({
-    email: new FormControl('', [Validators.required, Validators.email] ),
+    email: new FormControl('lucas@gmail.com', [Validators.required, Validators.email] ),
     password: new FormControl('', [Validators.required]),
   });
 
-  constructor(private menuController: MenuController, private router: Router) {}
+  constructor(private menuController: MenuController, private router: Router, private userService: UserService) {}
 
   ngOnInit() {
     
@@ -60,19 +62,19 @@ export class LoginPage implements OnInit {
   
   ionViewWillEnter() {
   this.menuController.enable(false)
-  }
+  };
 
   ionViewWillLeave() {
     this.menuController.enable(true);
-  }
+  };
 
   getUser() {
     return this.user
-  }
+  };
 
   getUsername () {
     return this.user.username
-  }
+  };
 
   onSubmit() {
     console.log('form values: ',this.loginForm.value);
@@ -90,11 +92,11 @@ export class LoginPage implements OnInit {
     }
     else {
       console.log('usuario incorrecto');
-    }
-  }
+    };
+  };
 
   navigateToRegister() {
     this.router.navigate(['/register']);
-  }
+  };
 
 }
