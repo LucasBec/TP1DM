@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
+  FormBuilder,
   FormControl,
   FormGroup,
   FormsModule,
@@ -43,10 +44,54 @@ import { UserService } from 'src/app/services/user.service';
     
   ],
 })
-export class LoginPage implements OnInit {
+
+export class LoginPage {
+  loginForm: FormGroup;
+  loginError: string | null = null;
+
+  constructor(private menuController: MenuController, private fb: FormBuilder, private router: Router, private userService: UserService) {
+    this.loginForm = this.fb.group({
+      email: ['lucas@gmail.com', [Validators.required, Validators.email]],
+      password: ['', [Validators.required,]]
+    });
+  }
+
+  ngOnInit() {}
+
+  //para que no funcione el sidemenu en el login
+  ionViewWillEnter() {
+    this.menuController.enable(false)
+    }
+  //para que funcione el sidemenu al salir del login
+  ionViewWillLeave() {
+    this.menuController.enable(true);
+  }
+
+  onSubmit() {
+    if (this.loginForm.valid) {
+      const email = this.loginForm.value.email;
+      const password = this.loginForm.value.password;
+
+      const isAuthenticated = this.userService.login(email, password);// verifica si el usuario existe
+
+      if (isAuthenticated) {
+        // Redirigir al home si el login es exitoso
+        this.router.navigate(['/home']);
+        console.log('despues',this.userService.getLoggedInUser());
+      } else {
+        this.loginError = 'Credenciales incorrectas. Inténtalo de nuevo.';
+      }
+    }
+  }
+
+  navigateToRegister() {
+    this.router.navigate(['/register']);
+  };
+}
+/* export class LoginPage implements OnInit {
   
   user = this.userService.getUser();
-  /* user = {email: 'lucas@gmail.com', password: '12345', username: 'Lucas Beceiro'}; */
+  
   
 
   loginForm: FormGroup = new FormGroup({
@@ -93,10 +138,8 @@ export class LoginPage implements OnInit {
     else {
       console.log('usuario incorrecto');
     };
-  };
+  }; */
 
-  navigateToRegister() {
-    this.router.navigate(['/register']);
-  };
+  
 
-}
+

@@ -17,12 +17,17 @@
   
   <ion-content class="ion-padding">
     <div class="img-container">
-      <img src="../../../assets/img/default.png" height="100px" width="100px" alt="default.png">
+      <!-- Mostrar la imagen de perfil cargada -->
+      <img [src]="user?.profilePicture || '../../../assets/img/default.png'" height="100px" width="100px" alt="Imagen de perfil">
     </div>
-    <p>Nombre de Usuario: {{username}}</p>
-    <p>Correo: {{email}}</p>
+    <!-- Input para seleccionar archivo -->
+    <input type="file" (change)="onFileSelected($event)" accept="image/*">
+    <ion-button (click)="saveProfilePicture()">Guardar Imagen</ion-button>
+    
+    <p>Nombre de Usuario: {{user?.username}}</p>
+    <p>Correo: {{user?.email}}</p>
 
-    <ion-button type="button" onclick="openEditModal()">Editar</ion-button>
+    <ion-button (click)="openEditModal()">Editar</ion-button>
 
     </ion-content>
 

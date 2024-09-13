@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
+  FormBuilder,
   FormControl,
   FormGroup,
   FormsModule,
@@ -41,7 +42,63 @@ import { UserService } from 'src/app/services/user.service';
     
   ],
 })
-export class RegisterPage implements OnInit {
+
+
+
+export class RegisterPage {
+
+  registerForm: FormGroup = new FormGroup({
+    username: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(30)]),
+    email: new FormControl('', [Validators.required, Validators.email,Validators.maxLength(30)] ),
+    password: new FormControl('', [Validators.required, Validators.minLength(5)]),
+    repassword: new FormControl('', [Validators.required, Validators.minLength(5)]),
+  });
+
+  constructor(private menuController: MenuController, private fb: FormBuilder, private router: Router, private userService: UserService) {
+    
+  }
+
+  ngOnInit() {
+  }
+
+  //para que no funcione el sidemenu en el login
+  ionViewWillEnter() {
+    this.menuController.enable(false)
+    }
+  //para que funcione el sidemenu al salir del login
+  ionViewWillLeave() {
+    this.menuController.enable(true);
+  }
+
+  onSubmit() {
+    if (this.registerForm.valid) {
+      const newUser = {
+        email: this.registerForm.value.email,
+        password: this.registerForm.value.password,
+        username: this.registerForm.value.username
+      };
+
+      // Agregar el nuevo usuario a la lista de usuarios
+      this.userService.addUser(newUser);
+
+      this.registerForm.reset();
+
+      console.log(this.userService.getUsers());
+      alert('Usuario registrado con exito');
+      this.navigateToLogin()
+
+    }
+  }
+
+  navigateToLogin() {
+    this.router.navigate(['/login']);
+  }
+
+}
+
+
+
+/* export class RegisterPage implements OnInit {
 
   newUser = {username: '', email: '', password: '', repassword: ''};
 
@@ -91,5 +148,5 @@ export class RegisterPage implements OnInit {
   navigateToLogin() {
     this.router.navigate(['/login']);
   }
-}
+} */
 
