@@ -64,7 +64,7 @@ export class UserService {
       if (userIndex !== -1) {
         this.users[userIndex].profilePicture = profilePicture;
 
-        // Actualizamos el BehaviorSubject con la nueva imagen de perfil
+        // Actualiza el BehaviorSubject con la nueva imagen de perfil
         this.loggedInUserSubject.next(this.users[userIndex]);
       }
     }

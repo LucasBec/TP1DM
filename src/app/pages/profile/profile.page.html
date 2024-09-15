@@ -11,19 +11,16 @@
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">profile</ion-title>
+      <ion-title size="large">Mi Perfil</ion-title>
     </ion-toolbar>
   </ion-header>
   
   <ion-content class="ion-padding">
     <div class="img-container">
-      <!-- Mostrar la imagen de perfil cargada -->
       <img [src]="user?.profilePicture || '../../../assets/img/default.png'" height="100px" width="100px" alt="Imagen de perfil">
+      <ion-button (click)="openProfilePictureModal()">Editar imagen</ion-button>
     </div>
-    <!-- Input para seleccionar archivo -->
-    <input type="file" (change)="onFileSelected($event)" accept="image/*">
-    <ion-button (click)="saveProfilePicture()">Guardar Imagen</ion-button>
-    
+
     <p>Nombre de Usuario: {{user?.username}}</p>
     <p>Correo: {{user?.email}}</p>
 

@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
-  FormBuilder,
   FormControl,
   FormGroup,
   FormsModule,
@@ -18,6 +17,7 @@ import {
   IonTitle,
   IonToolbar,
   MenuController,
+  ToastController,
 } from '@ionic/angular/standalone';
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
@@ -43,9 +43,8 @@ import { UserService } from 'src/app/services/user.service';
   ],
 })
 
-
-
 export class RegisterPage {
+  toastState = true;
 
   registerForm: FormGroup = new FormGroup({
     username: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(30)]),
@@ -54,7 +53,11 @@ export class RegisterPage {
     repassword: new FormControl('', [Validators.required, Validators.minLength(5)]),
   });
 
-  constructor(private menuController: MenuController, private fb: FormBuilder, private router: Router, private userService: UserService) {
+  constructor(private menuController: MenuController,
+    private router: Router,
+    private userService: UserService,
+    private toastController: ToastController,
+  ) {
     
   }
 
@@ -70,8 +73,17 @@ export class RegisterPage {
     this.menuController.enable(true);
   }
 
-  onSubmit() {
-    if (this.registerForm.valid) {
+  async onSubmit() {
+
+    if (this.registerForm.value.password != this.registerForm.value.repassword) {
+      this.toastState = false;
+      {
+      await this.presentToast('Las contraseñas no coinciden');
+      return;
+      };
+    }
+    else if (this.registerForm.valid && this.registerForm.value.password === this.registerForm.value.repassword) {
+      this.toastState = true;
       const newUser = {
         email: this.registerForm.value.email,
         password: this.registerForm.value.password,
@@ -84,9 +96,30 @@ export class RegisterPage {
       this.registerForm.reset();
 
       console.log(this.userService.getUsers());
-      alert('Usuario registrado con exito');
-      this.navigateToLogin()
+      await this.presentToast('Usuario registrado con éxito!');
+      this.navigateToLogin();
+    }
+  }
 
+  async presentToast(message: string) {
+    if (this.toastState == false) {
+      const toast = await this.toastController.create({
+        message, 
+        duration: 2000, //milisegundos
+        position: 'middle', //(top, middle, bottom)
+        color: 'danger', 
+      });
+      await toast.present();
+    }
+
+    else {
+    const toast = await this.toastController.create({
+      message, 
+      duration: 2000, //milisegundos
+      position: 'middle', //(top, middle, bottom)
+      color: 'success', 
+    });
+    await toast.present();
     }
   }
 
@@ -95,58 +128,3 @@ export class RegisterPage {
   }
 
 }
-
-
-
-/* export class RegisterPage implements OnInit {
-
-  newUser = {username: '', email: '', password: '', repassword: ''};
-
-  registerForm: FormGroup = new FormGroup({
-    username: new FormControl('', [Validators.required]),
-    email: new FormControl('', [Validators.required, Validators.email] ),
-    password: new FormControl('', [Validators.required]),
-    repassword: new FormControl('', [Validators.required]),
-  });
-
-  constructor(private menuController: MenuController, private router: Router, private userService: UserService) {}
-
-  ngOnInit() { }
-
-  //para que no funcione el sidemenu en el login
-  ionViewWillEnter() {
-    this.menuController.enable(false)
-    }
-  //para que funcione el sidemenu al salir del login
-  ionViewWillLeave() {
-    this.menuController.enable(true);
-  }
-
-  onSubmit() {
-    //alertar si las contraseñas no coinciden
-    if (this.registerForm.value.password != this.registerForm.value.repassword) {
-      alert('Las contraseñas no coinciden');
-      return;
-    }
-    
-    else if (this.registerForm.valid) {
-      const newUser = {
-        email: this.registerForm.value.email,
-        password: this.registerForm.value.password,
-        username: this.registerForm.value.username
-      };
-
-      this.registerForm.reset();
-
-      this.userService.setUser(newUser);
-
-      this.router.navigate(['/home']);
-    }
-
-  }
-
-  navigateToLogin() {
-    this.router.navigate(['/login']);
-  }
-} */
-

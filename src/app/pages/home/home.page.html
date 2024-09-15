@@ -5,9 +5,8 @@
       <ion-menu-button menu="m1"></ion-menu-button>
     </ion-buttons>
 
-    <ion-title>
-      Home
-    </ion-title>
+    <ion-title>Home</ion-title>
+
     <ion-chip [routerLink]="['/profile']" slot="end">
       <ion-avatar>
         <img alt="Silhouette of a person's head" [src]="user?.profilePicture || '../../../assets/img/default.png'" />
@@ -17,6 +16,28 @@
 
   </ion-toolbar>
 </ion-header>
+
+<ion-content [fullscreen]="true"></ion-content>
+  <ion-header collapse="condense">
+    <ion-toolbar>
+
+      <ion-buttons slot="start">
+        <ion-menu-button menu="m1"></ion-menu-button>
+      </ion-buttons>
+  
+      <ion-title>
+        Home
+      </ion-title>
+
+      <ion-chip [routerLink]="['/profile']" slot="end">
+        <ion-avatar>
+          <img alt="Silhouette of a person's head" [src]="user?.profilePicture || '../../../assets/img/default.png'" />
+        </ion-avatar>
+        <ion-label>{{user?.username}}</ion-label>
+      </ion-chip>
+  
+    </ion-toolbar>
+  </ion-header>
 
 <ion-content [fullscreen]="true">
   <div id="container">

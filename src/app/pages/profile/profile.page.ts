@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { IonButtons, IonContent, IonHeader, IonTitle, IonToolbar, IonMenuButton, IonBackButton, IonButton, ModalController } from '@ionic/angular/standalone';
 import { UserService } from 'src/app/services/user.service';
 import { EditUserModal } from 'src/app/components/edit-user/edit-user.component';
+import { EditPfpModalComponent } from 'src/app/components/edit-pfp-modal/edit-pfp-modal.component';
 
 @Component({
   selector: 'app-profile',
@@ -15,8 +16,6 @@ import { EditUserModal } from 'src/app/components/edit-user/edit-user.component'
 export class ProfilePage implements OnInit {
 
   user: { email: string; username: string; profilePicture?: string } | null = null;
-  selectedFile: File | null = null; // Para almacenar la imagen seleccionada
-  profileImageUrl: string | ArrayBuffer | null = ''; // URL de la imagen cargada
 
   constructor(private userService: UserService, private modalCtrl: ModalController) {
   }
@@ -30,32 +29,19 @@ export class ProfilePage implements OnInit {
     });
   }
 
+  async openProfilePictureModal() {
+    const modal = await this.modalCtrl.create({
+      component: EditPfpModalComponent,
+    });
+
+    return await modal.present();
+  }
+
   async openEditModal() {
     const modal = await this.modalCtrl.create({
       component: EditUserModal,
     });
     return await modal.present();
   }
-
-    // Manejar la selección de la imagen
-    onFileSelected(event: any) {
-      this.selectedFile = event.target.files[0];
-  
-      const reader = new FileReader();
-      reader.onload = () => {
-        this.profileImageUrl = reader.result; // Convertir la imagen a base64 o URL
-      };
-  
-      if (this.selectedFile) {
-        reader.readAsDataURL(this.selectedFile); // Leer el archivo de imagen
-      }
-    }
-  
-    // Guardar la imagen seleccionada en el servicio
-    saveProfilePicture() {
-      if (this.profileImageUrl && this.user) {
-        this.userService.updateUserProfilePicture(this.profileImageUrl.toString());
-      }
-    }
   
 }

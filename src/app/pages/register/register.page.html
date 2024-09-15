@@ -9,25 +9,28 @@
 
   <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
 
-    <ion-input label="Username"  formControlName="username">
+    <ion-input placeholder="Username"  formControlName="username">
     </ion-input>
 
-    <ion-input label="Email"  formControlName="email">
+    <ion-input placeholder="Email"  formControlName="email">
     </ion-input>
   
-    <ion-input type="password" label="password" formControlName="password">
+    <ion-input type="password" placeholder="Password" formControlName="password">
       <ion-input-password-toggle slot="end"></ion-input-password-toggle>
     </ion-input>
 
-    <ion-input type="password" label="confirm password" formControlName="repassword">
+    <ion-input type="password" placeholder="Confirm password" formControlName="repassword">
       <ion-input-password-toggle slot="end"></ion-input-password-toggle>
     </ion-input>
 
     <ion-button [disabled]="!registerForm.valid" type="submit">Registrar</ion-button>
+
+    <div class="register-link">
+      <p>¿Ya tienes una cuenta? <a (click)="navigateToLogin()">Inicia sesión</a></p>
+    </div>
+    
   </form>
 
-  <div class="register-link">
-    <p>¿Ya tienes una cuenta? <a (click)="navigateToLogin()">Inicia sesión</a></p>
-  </div>
+
 
 </ion-content>

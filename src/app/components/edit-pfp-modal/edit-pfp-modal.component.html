@@ -1,0 +1,16 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Editar Imagen de Perfil</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="dismiss()">Cerrar</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <input type="file" (change)="onFileSelected($event)" accept="image/*">
+  <div *ngIf="imagePreview">
+    <img [src]="imagePreview" alt="Vista previa de la imagen" style="width: 100px; height: 100px; border-radius: 50%;">
+  </div>
+  <ion-button expand="block" (click)="savePfp()" [disabled]="!selectedFile">Guardar</ion-button>
+</ion-content>

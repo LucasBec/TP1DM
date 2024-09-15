@@ -12,6 +12,8 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class EditUserModal {
 
+  uploadImageMode = false;
+
   editProfileForm: FormGroup;
 
   constructor(private modalCtrl: ModalController, private fb: FormBuilder, private userService: UserService) {
