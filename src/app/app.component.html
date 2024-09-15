@@ -3,15 +3,26 @@
   <ion-menu side="start" menuId="m1" contentId="main-content">
     <ion-header>
       <ion-toolbar>
-        <ion-title>Menu Content</ion-title>
+        <ion-title>Menu</ion-title>
         <!-- <ion-note>{{user.email}}</ion-note> -->
       </ion-toolbar>
-      <ion-list >
-        <ion-item class="ion-padding" button routerLink="/home" (click)="closeMenu()">Home</ion-item>
-        <ion-item class="ion-padding" button routerLink="/profile" (click)="closeMenu()">Mi Perfil</ion-item>
-        <ion-item class="ion-padding" button routerLink="/settings" (click)="closeMenu()">Ajustes</ion-item>
-      </ion-list>
     </ion-header>
+
+    <ion-content>
+
+    <ion-list class="ion-padding">
+      <ion-item  button routerLink="/home" (click)="closeMenu()">
+        <ion-label>Home</ion-label>
+      </ion-item>
+      <ion-item  button routerLink="/profile" (click)="closeMenu()">
+        <ion-label>Perfil</ion-label>
+      </ion-item>
+      <ion-item  button routerLink="/settings" (click)="closeMenu()">
+        <ion-label>Ajustes</ion-label>
+      </ion-item>
+    </ion-list>
+
+  </ion-content>
       
   </ion-menu>
 

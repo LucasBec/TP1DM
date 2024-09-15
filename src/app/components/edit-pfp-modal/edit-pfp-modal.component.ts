@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, } from '@angular/core';
 import { ModalController, IonButton, IonInput, IonContent, IonHeader, IonItem, IonModal, IonLabel, IonToolbar, IonTitle, IonButtons } from '@ionic/angular/standalone';
 import { UserService } from 'src/app/services/user.service';
 
@@ -14,7 +14,6 @@ export class EditPfpModalComponent  {
 
   selectedFile: File | null = null;
   imagePreview: string | ArrayBuffer | null = null;  // Variable para almacenar la vista previa de la imagen
-
   profileImageUrl: string | ArrayBuffer | null = ''; // URL de la imagen cargada
 
   constructor(private modalCtrl: ModalController, private userService: UserService) {

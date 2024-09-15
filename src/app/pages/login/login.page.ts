@@ -41,7 +41,6 @@ import { UserService } from 'src/app/services/user.service';
     IonButton,
     IonBackButton,
     IonInputPasswordToggle,
-    
   ],
 })
 
@@ -58,7 +57,7 @@ export class LoginPage {
     {
     this.loginForm = this.fb.group({
       email: ['lucas@gmail.com', [Validators.required, Validators.email]],
-      password: ['', [Validators.required,]]
+      password: ['12345', [Validators.required,]]
     });
   }
 

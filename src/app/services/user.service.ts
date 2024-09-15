@@ -16,7 +16,7 @@ export class UserService {
 
   // Añadir un nuevo usuario
   addUser(newUser: { email: string; password: string; username: string }) {
-    const userWithProfilePicture = { ...newUser, profilePicture: '' }; // Agregamos un valor por defecto
+    const userWithProfilePicture = { ...newUser, profilePicture: '' };
     this.users.push(userWithProfilePicture);
   }
 
@@ -40,17 +40,17 @@ export class UserService {
     return this.loggedInUserSubject.value;
   }
 
-  // Actualizar los datos del usuario logueado
+  // funcion para actualizar los datos del usuario logueado despues de editarse
   updateUser(updatedUser: { email: string; username: string }) {
     const currentUser = this.loggedInUserSubject.value;
     if (currentUser) {
       const userIndex = this.users.findIndex(u => u.email === currentUser.email);
       if (userIndex !== -1) {
-        // Actualizamos los datos en la lista de usuarios
+        // Actualiza los datos en la lista de usuarios
         this.users[userIndex].email = updatedUser.email;
         this.users[userIndex].username = updatedUser.username;
 
-        // Actualizamos el BehaviorSubject con los nuevos datos
+        // Actualiza el BehaviorSubject con los nuevos datos
         this.loggedInUserSubject.next(this.users[userIndex]);
       }
     }

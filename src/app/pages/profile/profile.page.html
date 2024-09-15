@@ -18,7 +18,7 @@
   <ion-content class="ion-padding">
     <div class="img-container">
       <img [src]="user?.profilePicture || '../../../assets/img/default.png'" height="100px" width="100px" alt="Imagen de perfil">
-      <ion-button (click)="openProfilePictureModal()">Editar imagen</ion-button>
+      <ion-button (click)="openProfilePictureModal()" size="small">Editar imagen</ion-button>
     </div>
 
     <p>Nombre de Usuario: {{user?.username}}</p>
