@@ -40,7 +40,7 @@ export class UserService {
     return this.loggedInUserSubject.value;
   }
 
-  // funcion para actualizar los datos del usuario logueado despues de editarse
+  // para actualizar los datos del usuario logueado despues de editarse
   updateUser(updatedUser: { email: string; username: string }) {
     const currentUser = this.loggedInUserSubject.value;
     if (currentUser) {
@@ -49,7 +49,6 @@ export class UserService {
         // Actualiza los datos en la lista de usuarios
         this.users[userIndex].email = updatedUser.email;
         this.users[userIndex].username = updatedUser.username;
-
         // Actualiza el BehaviorSubject con los nuevos datos
         this.loggedInUserSubject.next(this.users[userIndex]);
       }

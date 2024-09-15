@@ -21,9 +21,7 @@ export class HomePage implements OnInit {
       if (this.router.url === '/home') {
         // Si el usuario está en la página de inicio, no permitir retroceso
         console.log('Retroceso bloqueado en Home');
-      } else {
-        this.router.navigate(['/home']); // Redirigir al home en caso de retroceso
-      }
+      };
     }
   );
   }

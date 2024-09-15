@@ -10,20 +10,19 @@
 
     <ion-content>
 
-    <ion-list class="ion-padding">
-      <ion-item  button routerLink="/home" (click)="closeMenu()">
-        <ion-label>Home</ion-label>
-      </ion-item>
-      <ion-item  button routerLink="/profile" (click)="closeMenu()">
-        <ion-label>Perfil</ion-label>
-      </ion-item>
-      <ion-item  button routerLink="/settings" (click)="closeMenu()">
-        <ion-label>Ajustes</ion-label>
-      </ion-item>
-    </ion-list>
+      <ion-list class="ion-padding">
+        <ion-item  button routerLink="/home" (click)="closeMenu()">
+          <ion-label>Home</ion-label>
+        </ion-item>
+        <ion-item  button routerLink="/profile" (click)="closeMenu()">
+          <ion-label>Perfil</ion-label>
+        </ion-item>
+        <ion-item  button routerLink="/settings" (click)="closeMenu()">
+          <ion-label>Ajustes</ion-label>
+        </ion-item>
+      </ion-list>
 
-  </ion-content>
-      
+    </ion-content>
   </ion-menu>
 
   <ion-router-outlet id="main-content"></ion-router-outlet>
