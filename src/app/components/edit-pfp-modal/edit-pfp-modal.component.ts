@@ -16,20 +16,16 @@ export class EditPfpModalComponent  {
   imagePreview: string | ArrayBuffer | null = null;  // Variable para almacenar la vista previa de la imagen
   profileImageUrl: string | ArrayBuffer | null = ''; // URL de la imagen cargada
 
-  constructor(private modalCtrl: ModalController, private userService: UserService) {
-    const user = this.userService.getLoggedInUser();
-  }
+  constructor(private modalCtrl: ModalController, private userService: UserService) { }
 
   dismiss() {
     this.modalCtrl.dismiss();
-    
   }
 
   onFileSelected(event: any) {
     const file = event.target.files[0];
     if (file) {
       this.selectedFile = file;
-
       //convertir la imagen a base64
       const reader = new FileReader();
       reader.onload = () => {
